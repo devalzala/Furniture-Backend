@@ -1,0 +1,8 @@
+/node_modules
+.eslintcache
+package-lock.json
+.DS_Store
+/uploads
+*.log
+/access-logs
+/json-config
