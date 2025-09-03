@@ -2,7 +2,8 @@ const User = require("../models/userSchema");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { status, messages } = require('../utils/index');
- 
+const nodemailer = require("nodemailer");
+
 
 // Login existing user
 exports.login = async (req, res) => {
@@ -103,5 +104,82 @@ exports.register = async (req, res) => {
   } catch (err) {
     console.error("Registration error:", err);
     res.status(status.InternalServerError).json({ error: "Server error: (Register) " + err.message });
+  }
+};
+
+// Forgot Password
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(status.BadRequest).json({ message: messages.EMAIL_REQUIRE });
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(status.NotFound).json({ message: messages.USER_NOT_FOUND });
+
+    // Create reset token
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password`;
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: user.email,
+      subject: "Reset Your Password - Furniture Support",
+      html: `
+  <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333; max-width:600px; margin:0 auto; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
+    <div style="background:#4CAF50; padding:16px; text-align:center; color:#fff;">
+      <h2 style="margin:0;">Furniture Support</h2>
+    </div>
+    <div style="padding:24px;">
+      <p>Hi <strong>${user.firstName || "User"}</strong>,</p>
+      <p>We received a request to reset the password for your account.</p>
+      <p style="text-align:center; margin:30px 0;">
+        <a href="${resetLink}" style="background:#4CAF50; color:#fff; text-decoration:none; padding:12px 24px; border-radius:6px; font-size:16px; display:inline-block;">Reset Password</a>
+      </p>
+      <p>If the button above doesn’t work, copy and paste the link below into your browser:</p>
+      <p><strong>Note:</strong> This link is valid for 15 minutes. After that, you’ll need to request a new password reset.</p>
+      <p>If you didn’t request this, you can safely ignore this email.</p>
+      <p>Best regards,<br/>Furniture Support Team</p>
+    </div>
+    <div style="background:#f5f5f5; padding:12px; text-align:center; font-size:12px; color:#888;">
+      &copy; ${new Date().getFullYear()} Furniture Support. All rights reserved.
+    </div>
+  </div>
+  `,
+    });
+
+    res.status(status.OK).json({ message: "Password reset link sent to your email" });
+  } catch (err) {
+    console.error("Forgot Password Error:", err);
+    res.status(status.InternalServerError).json({ error: "Server error (Forgot Password)" });
+  }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email })
+
+    if (!user) {
+      return res.status(status.BadRequest).json({ message: "User not found" });
+    }
+
+    if (!password) {
+      return res.status(status.BadRequest).json({ message: "Password is required" });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.findOneAndUpdate({ email }, { password: hashedPassword })
+
+    res.status(status.OK).json({ message: messages.PASSWORD_RESET_SUCCESSFULL });
+  } catch (err) {
+    console.error("Reset Password Error:", err);
+    res.status(status.InternalServerError).json({ error: "Server error (Reset Password)" });
   }
 };

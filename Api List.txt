@@ -1,0 +1,25 @@
+Api list :-
+
+-- Admin list :
+- User's CRUD : Add, List, Update, Delete, detail
+- Vendor's crud : add, list, update, delete, detail
+- Admin crud : add, list, update, delete, detail
+- dashboard : count of users, vendors, admin, total profit, net sale, total orders, graph chart month-wise reports, etc
+- profile page data
+- products crud list depending on their vendors
+- category crud
+- subcategory crud
+
+-- User List :
+- index page
+- about page
+- contact page
+- profile page
+- services page
+
+-- product list
+- product detail
+- liked products(wishlist)
+- add to cart
+- terms and condition
+- privacy policy

@@ -19,6 +19,12 @@ const messages = {
     USER_ALREADY_EXISTS: 'User already exists',
     USER_REGISTERED_SUCCESSFULLY: 'User registered successfully',
 
+    // Forgot & Reset Password
+    EMAIL_REQUIRE: 'Email is required',
+    USER_NOT_FOUND: 'User not found',
+    INVALID_TOKEN: 'Invalid or expired token',
+    PASSWORD_RESET_SUCCESSFULL: 'Password reset successful',
+   
     // Products
     PRODUCT_CREATED_SUCCESSFULLY:'Product created successfully',
     PRODUCT_FATCHED_SUCCESSFULLY:'Products fetched successfully',
