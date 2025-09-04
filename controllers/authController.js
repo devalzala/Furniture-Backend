@@ -183,3 +183,76 @@ exports.resetPassword = async (req, res) => {
     res.status(status.InternalServerError).json({ error: "Server error (Reset Password)" });
   }
 };
+
+// Vendor Registration API
+exports.registerVendor = async (req, res) => {
+  try {
+    const {
+      bussinessName,
+      GSTIN,
+      industrySegment,
+      addressLineOne,
+      addressLineTwo,
+      postalCode,
+      firstName,
+      surname,
+      email,
+      mobile,
+      password,
+    } = req.body;
+
+    // Validate input
+    if (
+      !bussinessName ||
+      !addressLineOne ||
+      !firstName ||
+      !surname ||
+      !email ||
+      !mobile ||
+      !password
+    ) {
+      return res.status(status.BadRequest).json({ message: "All required fields must be filled" });
+    }
+
+    // Check if email or mobile already exists
+    const existingUser = await User.findOne({ $or: [{ email }, { mobile }] });
+    if (existingUser) {
+      return res.status(status.BadRequest).json({ message: messages.VENDOR_ALREADY_EXISTS });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create vendor
+    const vendor = new User({
+      bussinessName,
+      GSTIN,
+      industrySegment,
+      addressLineOne,
+      addressLineTwo,
+      postalCode,
+      firstName,
+      surname,
+      email,
+      mobile,
+      password: hashedPassword,
+      role: "Vendor",
+    });
+
+    await vendor.save();
+
+    res.status(status.OK).json({
+      message: messages.VENDOR_REGISTERED_SUCCESSFULLY,
+      user: {
+        id: vendor._id,
+        bussinessName: vendor.bussinessName,
+        email: vendor.email,
+        mobile: vendor.mobile,
+        role: vendor.role,
+      },
+    });
+  } catch (err) {
+    console.error("Vendor registration error:", err);
+    res.status(status.InternalServerError).json({ error: "Server error: (RegisterVendor) " + err.message });
+  }
+};

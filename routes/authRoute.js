@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   login,
   register,
+  registerVendor,
   forgotPassword,
   resetPassword,
 } = require("../controllers/authController");
@@ -13,6 +14,9 @@ const {
 
 // Register a new user
 router.post("/register", register);
+
+// Register a new vendor
+router.post("/register-vendor", registerVendor);
 
 // Login existing user
 router.post("/login", login);

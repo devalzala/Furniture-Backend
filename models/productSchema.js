@@ -25,12 +25,7 @@ const productSchema = new mongoose.Schema(
             }
         ],
         ratings: { type: Number, min: 0, max: 5, default: 0 },
-        images: [
-            {
-                data: { type: String, required: true }, // base64 string
-                contentType: { type: String }
-            }
-        ],
+        images: [String],
         // NEW FIELD for soft delete
         isDeleted: {
             type: Number,

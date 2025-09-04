@@ -18,6 +18,8 @@ const messages = {
     // Registration
     USER_ALREADY_EXISTS: 'User already exists',
     USER_REGISTERED_SUCCESSFULLY: 'User registered successfully',
+    VENDOR_ALREADY_EXISTS: 'Vendor already exists',
+    VENDOR_REGISTERED_SUCCESSFULLY: 'Vendor registered successfully',
 
     // Forgot & Reset Password
     EMAIL_REQUIRE: 'Email is required',
@@ -30,7 +32,12 @@ const messages = {
     PRODUCT_FATCHED_SUCCESSFULLY:'Products fetched successfully',
     PRODUCT_UPDATED_SUCCESSFULLY:'Product updated successfully',
     PRODUCT_DELETED_SUCCESSFULLY:'Product deleted Succefully',
-    
+
+    // Contect Us
+    CONTACT_ALREADY_EXISTS: "Contact already exists",
+    CONTACT_SAVED_SUCCESSFULLY: "Contact saved successfully",
+    CONTACTS_FETCHED_SUCCESSFULLY: "Contact details fetched successfully",
+    NO_CONTACTS_FOUND: "No contact details found",
 };
 
 module.exports = {
