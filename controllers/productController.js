@@ -17,39 +17,42 @@ function fileToBase64(file) {
 // CREATE Product
 exports.createProduct = async (req, res) => {
     try {
-        let imageData = null;
-        if (req.file) imageData = fileToBase64(req.file);
+        let imageData = [];
+
+        if (req.files && req.files.length > 0) {
+            imageData = req.files.map((file) => fileToBase64(file).data);
+        }
 
         const product = new Product({
             ...req.body,
-            images: imageData ? [imageData] : []
+            images: imageData
         });
 
         await product.save();
+
         res.status(status.OK).json({
             message: messages.PRODUCT_CREATED_SUCCESSFULLY,
-            product
+            product,
         });
     } catch (error) {
         res.status(status.InternalServerError).json({
             message: "Failed to create product",
-            error: error.message
+            error: error.message,
         });
     }
 };
+
 
 // READ All Products (not deleted)
 exports.getProducts = async (req, res) => {
     try {
         const products = await Product.find({ isDeleted: 0 });
-
-        if (products.length === 0) {
-            return res.status(status.NotFound).json({ message: "No products found" });
-        }
+        const totalCount = await Product.countDocuments({ isDeleted: 0 })
 
         res.status(status.OK).json({
             message: messages.PRODUCT_FATCHED_SUCCESSFULLY,
-            products
+            totalCount,
+            data: products,
         });
     } catch (error) {
         res.status(status.InternalServerError).json({
@@ -81,27 +84,45 @@ exports.getProductById = async (req, res) => {
 exports.updateProduct = async (req, res) => {
     try {
         let updateData = { ...req.body };
-        if (req.file) updateData.images = [fileToBase64(req.file)];
+
+        // Convert uploaded images
+        let newImages = [];
+        if (req.files && req.files.length > 0) {
+            newImages = req.files.map((file) => fileToBase64(file).data);
+        }
+
+        // Build update object
+        let updateQuery = { $set: updateData };
+        if (newImages.length > 0) {
+            updateQuery.$push = { images: { $each: newImages } };
+        }
 
         const product = await Product.findByIdAndUpdate(
             req.params.id,
-            updateData,
+            updateQuery,
             { new: true, runValidators: true }
         );
 
-        if (!product) return res.status(404).json({ message: "Product not found. Update failed." });
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found. Update failed.",
+            });
+        }
 
         res.status(status.OK).json({
             message: messages.PRODUCT_UPDATED_SUCCESSFULLY,
-            product
+            product,
         });
     } catch (error) {
+        console.log(error);
+        
         res.status(status.InternalServerError).json({
             message: "Failed to update product",
-            error: error.message
+            error: error.message,
         });
     }
 };
+
 
 // SOFT DELETE Product
 exports.deleteProduct = async (req, res) => {

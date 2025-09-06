@@ -14,7 +14,8 @@ const upload = multer({ dest: "uploads/" });
 
 // Routes
 // CREATE product
-router.post("/create", upload.single("image"), createProduct);
+// router.post("/create", upload.single("image"), createProduct);
+router.post("/create", upload.array("images", 5), createProduct);
 
 // GET all products
 router.get("/", getProducts);
@@ -23,7 +24,7 @@ router.get("/", getProducts);
 router.get("/:id", getProductById);
 
 // UPDATE product by ID
-router.put("/:id", upload.single("image"), updateProduct);
+router.put("/:id", upload.array("images", 5), updateProduct);
 
 // DELETE product by ID
 router.delete("/:id", deleteProduct);
