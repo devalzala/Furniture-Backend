@@ -25,6 +25,6 @@ router.post("/login", login);
 router.post("/forgot-password", forgotPassword);
 
 // Reset password - set new password using token
-router.post("/change-password", resetPassword);
+router.post("/reset-password", resetPassword);
 
 module.exports = router;
