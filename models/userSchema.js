@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    bussinessName: { type: String, required: true, trim: true },
+    bussinessName: { type: String, trim: true },
     GSTIN: { type: String, trim: true },
     industrySegment: { type: String, trim: true },
-    addressLineOne: { type: String, required: true, trim: true },
+    addressLineOne: { type: String, trim: true },
     addressLineTwo: { type: String, trim: true },
     postalCode: { type: String, trim: true },
     firstName: { type: String, required: true },
