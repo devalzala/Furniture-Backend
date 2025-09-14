@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
     postalCode: { type: String, trim: true },
     firstName: { type: String, required: true },
     surname: { type: String, required: true },
-    email: { type: String, required: true, unique: true, lowercase: true },
+    email: { type: String, required: true, lowercase: true },
     dob: { type: Date }, // Date of Birth
     mobile: { type: String, required: true, unique: true },
     gender: { type: String, enum: ["Male", "Female", "Other"] },
@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
       enum: ["Admin", "User", "Vendor"],
       default: "User",
     },
+    aboutUs: { type: String }
   },
   { timestamps: true }
 );

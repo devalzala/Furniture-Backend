@@ -256,3 +256,52 @@ exports.registerVendor = async (req, res) => {
     res.status(status.InternalServerError).json({ error: "Server error: (RegisterVendor) " + err.message });
   }
 };
+
+// Update User by ID
+exports.updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { firstName, surname, email, mobile, gender, aboutUs, password } = req.body;
+
+    // Check if user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(status.NotFound).json({ message: messages.USER_NOT_FOUND });
+    }
+
+    let hashedPassword
+    if (password && password.length > 0) {
+      hashedPassword = await bcrypt.hash(password, 10);
+    }
+
+    // Update allowed fields
+    user.firstName = firstName || user.firstName;
+    user.surname = surname || user.surname;
+    user.mobile = mobile || user.mobile;
+    user.email = email || user.email;
+    user.gender = gender || user.gender;
+    user.aboutUs = aboutUs || user.aboutUs;
+    user.password = hashedPassword || user.password;
+
+    await user.save();
+
+    res.status(status.OK).json({
+      message: messages.USER_UPDATED_SUCCESSFULLY,
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        surname: user.surname,
+        email: user.email,
+        mobile: user.mobile,
+        gender: user.gender,
+        aboutUs: user.aboutUs,
+      },
+    });
+  } catch (err) {
+    console.error("Update user error:", err);
+    res.status(status.InternalServerError).json({
+      message: "Server error during user update.",
+      error: err.message,
+    });
+  }
+};

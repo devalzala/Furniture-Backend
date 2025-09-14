@@ -23,10 +23,14 @@ const messages = {
 
     // Forgot & Reset Password
     EMAIL_REQUIRE: 'Email is required',
-    USER_NOT_FOUND: 'User not found',
     INVALID_TOKEN: 'Invalid or expired token',
     PASSWORD_RESET_SUCCESSFULL: 'Password reset successful',
-   
+    EXISTING_EMAIL: 'User already exists with this email',
+    
+    // User
+    USER_NOT_FOUND: 'User not found',
+    USER_UPDATED_SUCCESSFULLY: 'User Updated Sucessfully',
+
     // Products
     PRODUCT_CREATED_SUCCESSFULLY:'Product created successfully',
     PRODUCT_FATCHED_SUCCESSFULLY:'Products fetched successfully',
@@ -38,6 +42,20 @@ const messages = {
     CONTACT_SAVED_SUCCESSFULLY: "Contact saved successfully",
     CONTACTS_FETCHED_SUCCESSFULLY: "Contact details fetched successfully",
     NO_CONTACTS_FOUND: "No contact details found",
+
+    // Wishlist Messages
+    WISHLIST_UPDATED_SUCCESSFULLY: "Wishlist updated successfully",
+    WISHLIST_CLEARED_SUCCESSFULLY: "Wishlist cleared successfully",
+    WISHLIST_FETCHED_SUCCESSFULLY: "Wishlist fetched successfully",
+    WISHLIST_NOT_FOUND: "Wishlist not found",
+
+    // Address
+    ADDRESS_CREATED_SUCCESSFULLY: "Address created successfully",
+    ADDRESSES_FETCHED_SUCCESSFULLY: "Addresses fetched successfully",
+    ADDRESS_FETCHED_SUCCESSFULLY: "Address fetched successfully",
+    ADDRESS_UPDATED_SUCCESSFULLY: "Address updated successfully",
+    ADDRESS_DELETED_SUCCESSFULLY: "Address deleted successfully",
+    ADDRESS_NOT_FOUND: "Address not found"
 };
 
 module.exports = {

@@ -6,7 +6,9 @@ const {
   registerVendor,
   forgotPassword,
   resetPassword,
+  updateUser
 } = require("../controllers/authController");
+
 
 // -----------------
 // Auth Routes
@@ -26,5 +28,12 @@ router.post("/forgot-password", forgotPassword);
 
 // Reset password - set new password using token
 router.post("/reset-password", resetPassword);
+
+// -----------------
+// User Routes
+// -----------------
+
+// Update user by ID
+router.put("/update/:id", updateUser);
 
 module.exports = router;
