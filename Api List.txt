@@ -23,3 +23,27 @@ Api list :-
 - add to cart
 - terms and condition
 - privacy policy
+
+------------------------------------------------------------
+API
+
+Category- Get, Single, Post, Update, Delete
+Subcategory-  Get, Single, Post, Update, Delete
+User - Get, Single, Post, Update, Delete
+Product - Get, Single, Post, Update, Delete
+Add To Cart - Get, Post, Put, Delete
+Order - Get, Post, Put, Delete
+Payment - Get, Post
+Wishlist- Get, Post, Delete
+Address - Get, Post, Update, Delete
+Blog - Get, Post, Update, Delete
+Contact Us - Get, Post, Delete
+Review - Get, Post, Update, Delete
+Checkout - Get, Post,
+
+ADMIN
+Login - Get, Post, Update
+Vendor - Get, Post, Update, Delete
+
+Vendor
+Vendor - Get, Single, Post, Update, Delete

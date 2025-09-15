@@ -24,6 +24,9 @@ app.use("/api/contact", require("./routes/contactRoute"));
 app.use("/api/cart", require("./routes/cartRoutes"));
 app.use("/api/wishlist", require("./routes/wishlistRoute"));
 app.use("/api/address", require("./routes/addressRoute"));
+app.use("/api/blogs", require("./routes/blogRoute"));
+app.use("/api/categories", require("./routes/categoryRoutes"));
+app.use("/api/sub-categories", require("./routes/subCategoryRoutes"));
 
 // Start server
 app.listen(PORT, () => {

@@ -55,7 +55,31 @@ const messages = {
     ADDRESS_FETCHED_SUCCESSFULLY: "Address fetched successfully",
     ADDRESS_UPDATED_SUCCESSFULLY: "Address updated successfully",
     ADDRESS_DELETED_SUCCESSFULLY: "Address deleted successfully",
-    ADDRESS_NOT_FOUND: "Address not found"
+    ADDRESS_NOT_FOUND: "Address not found",
+
+    // Blogs
+    BLOG_CREATED_SUCCESSFULLY: "Blog created successfully",
+    BLOGS_FETCHED_SUCCESSFULLY: "Blogs fetched successfully",
+    BLOG_FETCHED_SUCCESSFULLY: "Blog fetched successfully",
+    BLOG_UPDATED_SUCCESSFULLY: "Blog updated successfully",
+    BLOG_DELETED_SUCCESSFULLY: "Blog deleted successfully",
+    BLOG_NOT_FOUND: "Blog not found",
+
+    // Category
+    CATEGORY_CREATED_SUCCESSFULLY: "Category created successfully",
+    CATEGORIES_FETCHED_SUCCESSFULLY: "Categories fetched successfully",
+    CATEGORY_FETCHED_SUCCESSFULLY: "Category fetched successfully",
+    CATEGORY_UPDATED_SUCCESSFULLY: "Category updated successfully",
+    CATEGORY_DELETED_SUCCESSFULLY: "Category deleted successfully",
+    CATEGORY_NOT_FOUND: "Category not found",
+
+    // Sub-Categories
+    SUBCATEGORY_CREATED_SUCCESSFULLY: "Subcategory created successfully",
+    SUBCATEGORIES_FETCHED_SUCCESSFULLY: "Subcategories fetched successfully",
+    SUBCATEGORY_FETCHED_SUCCESSFULLY: "Subcategory fetched successfully",
+    SUBCATEGORY_UPDATED_SUCCESSFULLY: "Subcategory updated successfully",
+    SUBCATEGORY_DELETED_SUCCESSFULLY: "Subcategory deleted successfully",
+    SUBCATEGORY_NOT_FOUND: "Subcategory not found"
 };
 
 module.exports = {
