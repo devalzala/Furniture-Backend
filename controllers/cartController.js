@@ -12,7 +12,6 @@ exports.addToCart = async (req, res) => {
       return res.status(400).json({ message: "userId and products array are required" });
     }
 
-    // ✅ Check if user exists
     const userExists = await User.findById(userId);
     if (!userExists) {
       return res.status(404).json({ message: "Invalid user. User not found." });
@@ -21,7 +20,6 @@ exports.addToCart = async (req, res) => {
     let cart = await Cart.findOne({ userId });
 
     for (const item of products) {
-      // ✅ Check if product exists
       const productData = await Product.findById(item.productId);
       if (!productData) {
         return res.status(404).json({ message: `Product not found: ${item.productId}` });
@@ -72,7 +70,6 @@ exports.addToCart = async (req, res) => {
       }
     }
 
-    // ✅ Update subtotal
     cart.subTotal = cart.product
       .reduce((acc, curr) => acc + parseFloat(curr.total || 0), 0)
       .toString();
