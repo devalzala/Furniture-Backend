@@ -1,5 +1,19 @@
 const mongoose = require("mongoose");
 
+const categorySchema = new mongoose.Schema(
+    {
+        _id: { type: String },
+        name: { type: String },
+    }
+)
+
+const subCategorySchema = new mongoose.Schema(
+    {
+        _id: { type: String },
+        name: { type: String },
+    }
+)
+
 const productSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
@@ -31,7 +45,9 @@ const productSchema = new mongoose.Schema(
             type: Number,
             enum: [0, 1],  // 0 = active, 1 = deleted
             default: 0
-        }
+        },
+        category: categorySchema,
+        subCategory: subCategorySchema
     },
     { timestamps: true }
 );

@@ -305,3 +305,46 @@ exports.updateUser = async (req, res) => {
     });
   }
 };
+
+exports.getUserByToken = async (req, res) => {
+  try {
+    const authHeader = req.headers["authorization"] || req.headers["Authorization"];
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(status.Unauthorized).json({
+        message: "Authorization token missing or invalid",
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    // 2. Verify token
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+      return res.status(status.Unauthorized).json({
+        message: "Invalid or expired token",
+      });
+    }
+
+    // 3. Get user from DB
+    const user = await User.findById(decoded.id).select("-password"); // exclude password
+    if (!user) {
+      return res.status(status.NotFound).json({
+        message: "User not found",
+      });
+    }
+
+    // 4. Send response
+    res.status(status.OK).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error("User By Token:", error);
+    res.status(status.InternalServerError).json({
+      message: "Server error while fetching user by token.",
+      error: error.message,
+    });
+  }
+};

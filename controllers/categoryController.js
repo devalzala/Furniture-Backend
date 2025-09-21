@@ -30,7 +30,15 @@ exports.createCategory = async (req, res) => {
 // READ All Categories
 exports.getAllCategories = async (req, res) => {
     try {
-        const categories = await Category.find().sort({ createdAt: -1 });
+        const { search } = req.query;
+        
+        let findObject = {}
+
+        if (search && search !== "") {
+            findObject.name = { $regex: search, $options: "i" };
+        }
+
+        const categories = await Category.find(findObject).sort({ createdAt: -1 });
 
         res.status(status.OK).json({
             message: messages.CATEGORIES_FETCHED_SUCCESSFULLY,

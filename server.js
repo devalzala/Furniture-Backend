@@ -27,6 +27,7 @@ app.use("/api/address", require("./routes/addressRoute"));
 app.use("/api/blogs", require("./routes/blogRoute"));
 app.use("/api/categories", require("./routes/categoryRoutes"));
 app.use("/api/sub-categories", require("./routes/subCategoryRoutes"));
+app.use("/api/review", require("./routes/reviewRoute"));
 
 // Start server
 app.listen(PORT, () => {

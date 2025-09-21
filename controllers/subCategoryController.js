@@ -131,3 +131,36 @@ exports.deleteSubCategory = async (req, res) => {
         });
     }
 };
+
+// Get SubCategories by Category ID
+exports.getSubCategoryByCatergoryId = async (req, res) => {
+    try {
+        const { categoryId, search } = req.query;
+
+        if (!categoryId) {
+            return res.status(400).json({ message: "categoryId is required" });
+        }
+
+        let findObject = {
+            "category.categoryId": categoryId
+        }
+
+        if (search && search !== "") {
+            findObject.name = { $regex: search, $options: "i" };
+        }
+
+        // Find subcategories whose embedded category has the given categoryId
+        const subCategories = await SubCategory.find(findObject).sort({ createdAt: -1 }).limit(5);
+
+        return res.status(200).json({
+            message: "SubCategories fetched successfully",
+            data: subCategories,
+        });
+    } catch (error) {
+        // console.error(error);
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message,
+        });
+    }
+};

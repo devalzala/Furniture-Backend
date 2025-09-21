@@ -79,7 +79,14 @@ const messages = {
     SUBCATEGORY_FETCHED_SUCCESSFULLY: "Subcategory fetched successfully",
     SUBCATEGORY_UPDATED_SUCCESSFULLY: "Subcategory updated successfully",
     SUBCATEGORY_DELETED_SUCCESSFULLY: "Subcategory deleted successfully",
-    SUBCATEGORY_NOT_FOUND: "Subcategory not found"
+    SUBCATEGORY_NOT_FOUND: "Subcategory not found",
+
+    // Reviews
+    REVIEW_CREATED_SUCCESSFULLY: "Review created successfully",
+    REVIEWS_FETCHED_SUCCESSFULLY: "Reviews fetched successfully",
+    REVIEW_NOT_FOUND: "Review not found",
+    REVIEW_UPDATED_SUCCESSFULLY: "Review updated successfully",
+    REVIEW_DELETED_SUCCESSFULLY: "Review deleted successfully",
 };
 
 module.exports = {
