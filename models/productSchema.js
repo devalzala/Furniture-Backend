@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema(
         tags: [
             {
                 type: String,
-                enum: ["chair", "sofa", "leather", "vintage"]
+                enum: ["chair", "sofa", "leather", "vintage", "furniture"]
             }
         ],
         ratings: { type: Number, min: 0, max: 5, default: 0 },
